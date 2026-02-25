@@ -1,4 +1,4 @@
-package ideaprojects.springapplicationexample.controller;
+package ideaprojects.springapplicationexample.controller.exception;
 
 import org.springframework.boot.webmvc.error.ErrorController;
 import org.springframework.stereotype.Controller;
@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @ControllerAdvice
 public class GlobalExceptionHandler implements ErrorController {
 
-    @RequestMapping("/error-page")
+    @RequestMapping("/error")
     public String getErrorPage() {
-        return "error-page";
+        return "public/error/error-page";
     }
 
     @ExceptionHandler(Throwable.class)
