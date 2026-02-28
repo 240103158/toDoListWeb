@@ -2,7 +2,9 @@ package ideaprojects.springapplicationexample.controller.Secure;
 
 import ideaprojects.springapplicationexample.entity.DTO.RecordDTO;
 import ideaprojects.springapplicationexample.entity.RecordStatus;
+import ideaprojects.springapplicationexample.entity.User;
 import ideaprojects.springapplicationexample.service.RecordService;
+import ideaprojects.springapplicationexample.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,16 +19,20 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping("/account")
 public class PrivateCommandController {
     private final RecordService recordService;
+    private final UserService userService;
 
     @Autowired
-    public PrivateCommandController(RecordService recordService) {
+    public PrivateCommandController(RecordService recordService, UserService userService) {
         this.recordService = recordService;
+        this.userService = userService;
     }
-
 
     @GetMapping
     public String getRecords(Model model, @RequestParam(name="filter", required = false) String filterMode){
+        User user = userService.getCurrentUser();
         RecordDTO container = recordService.findAllRecords(filterMode);
+
+        model.addAttribute("userName", user.getName());
         model.addAttribute("numberOfDone", container.getNumberOfDone());
         model.addAttribute("numberOfActive", container.getNumberOfActive());
         model.addAttribute("records", container.getRecords());
