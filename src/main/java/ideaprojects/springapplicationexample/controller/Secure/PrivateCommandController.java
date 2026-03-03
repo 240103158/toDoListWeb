@@ -5,6 +5,8 @@ import ideaprojects.springapplicationexample.entity.RecordStatus;
 import ideaprojects.springapplicationexample.entity.User;
 import ideaprojects.springapplicationexample.service.RecordService;
 import ideaprojects.springapplicationexample.service.UserService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,7 +30,17 @@ public class PrivateCommandController {
     }
 
     @GetMapping
-    public String getRecords(Model model, @RequestParam(name="filter", required = false) String filterMode){
+    public String getRecords(HttpServletRequest request, Model model, @RequestParam(name="filter", required = false) String filterMode){
+        HttpSession session = request.getSession();
+        Object counter = session.getAttribute("visitsCounter");
+        if(counter != null){
+            model.addAttribute("visitsCounter", (Integer) counter);
+            session.setAttribute("visitsCounter",  ((Integer) counter + 1)) ;
+        }else{
+            model.addAttribute("visitsCounter", 0);
+            session.setAttribute("visitsCounter",  1) ;
+        }
+
         User user = userService.getCurrentUser();
         RecordDTO container = recordService.findAllRecords(filterMode);
 

@@ -11,6 +11,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -41,6 +42,8 @@ public class SecurityConfig {
                         .requestMatchers("/admin", "/admin/**").hasRole(UserRole.ADMIN.name())
                         .anyRequest().authenticated()
                 )
+                .sessionManagement(session -> session
+                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .formLogin(form -> form
                         .loginPage("/login") // if you don't have permission then you throw to login
                         .usernameParameter("email") // login url get email parameter from front
@@ -48,6 +51,7 @@ public class SecurityConfig {
                         .permitAll() // for all users
                 )
                 .logout(logout -> logout.logoutUrl("/logout")
+                        .logoutSuccessUrl("/")
                         .permitAll()
                 )
                 .build();
