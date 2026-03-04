@@ -39,10 +39,9 @@ public class PrivateCommandController {
             session.setAttribute("visitsCounter",  1) ;
         }
 
-        User user = userService.getCurrentUser();
         RecordDTO container = recordService.findAllRecords(filterMode);
 
-        model.addAttribute("userName", user.getName());
+        model.addAttribute("userName", container.getUserName());
         model.addAttribute("numberOfDone", container.getNumberOfDone());
         model.addAttribute("numberOfActive", container.getNumberOfActive());
         model.addAttribute("records", container.getRecords());

@@ -5,6 +5,7 @@ import ideaprojects.springapplicationexample.entity.Record;
 
 
 public class RecordDTO {
+    private final String username;
     private final List<Record> records;
     private final int numberOfDone;
     private final int numberOfActive;
@@ -22,10 +23,14 @@ public class RecordDTO {
         return numberOfActive;
     }
 
-    public RecordDTO(List<Record> records, int numberOfDone, int numberOfActive) {
+    public String getUserName() {
+        return username;
+    }
+
+    public RecordDTO(String username, List<Record> records, int numberOfDone, int numberOfActive) {
+        this.username = username;
         this.records = records;
         this.numberOfDone = numberOfDone;
         this.numberOfActive = numberOfActive;
     }
-
 }

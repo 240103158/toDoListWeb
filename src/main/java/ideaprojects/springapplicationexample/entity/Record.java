@@ -5,6 +5,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -22,11 +25,20 @@ public class Record {
     @Column(name = "status", nullable = false)
     private RecordStatus status;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
+
     public Record() { }
 
-    public Record(String title) {
+    public User getUser() {
+        return user;
+    }
+
+    public Record(String title, User user) {
         this.title = title;
         this.status = RecordStatus.ACTIVE;
+        this.user = user;
     }
 
     public int getId() {
