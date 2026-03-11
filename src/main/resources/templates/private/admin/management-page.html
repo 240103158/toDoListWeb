@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
   <meta charset="UTF-8">
   <title>Management</title>
@@ -36,13 +36,13 @@
       </div>
     </div>
   </div>
-  <div class="container">
+  <div class="container" sec:authorize="hasRole('ROLE_SUPER_ADMIN')">
     <div class="header-container">
       <div class="header__text">
         <h2>Upgrade to Admin</h2>
       </div>
     </div>
-    <div th:with="isCandidatesToUpgradeEmpty=${candidatesToUpgrade == null or candidatesToUpgrade.isEmpty()}" class="form-container">
+    <div th:with="isCandidatesToUpgradeEmpty=${candidatesToUpgrade == null or candidatesToUpgrade.isEmpty()}" class="form-container" >
       <form action="/super-admin/change-status-to-admin" method="post" class="form-container__form">
         <div class="form-container__input-wrapper">
           <select name="id" class="form-container__select">
