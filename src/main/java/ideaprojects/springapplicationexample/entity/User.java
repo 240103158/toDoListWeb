@@ -76,4 +76,16 @@ public class User {
     public UserRole getRole() {
         return role;
     }
+
+    public Boolean isSimpleUser(){
+        return this.getRole() == UserRole.USER;
+    }
+
+    public Boolean IsAdmin(){
+        return this.getRole() == UserRole.ADMIN;
+    }
+
+    public Boolean  isSuperAdmin(){
+        return this.getRole() == UserRole.SUPER_ADMIN;
+    }
 }

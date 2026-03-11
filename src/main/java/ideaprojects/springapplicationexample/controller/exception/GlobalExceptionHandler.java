@@ -1,11 +1,9 @@
 package ideaprojects.springapplicationexample.controller.exception;
 
-         import jakarta.servlet.http.HttpServletRequest;
          import jakarta.servlet.http.HttpServletResponse;
          import org.springframework.boot.webmvc.error.ErrorController;
          import org.springframework.http.HttpStatus;
          import org.springframework.stereotype.Controller;
-        import org.springframework.ui.Model;
         import org.springframework.web.bind.annotation.ControllerAdvice;
         import org.springframework.web.bind.annotation.ExceptionHandler;
         import org.springframework.web.bind.annotation.GetMapping;

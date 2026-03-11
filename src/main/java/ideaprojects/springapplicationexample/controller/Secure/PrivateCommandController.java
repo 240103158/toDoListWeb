@@ -30,6 +30,7 @@ public class PrivateCommandController {
     @GetMapping
     public String getRecords(HttpServletRequest request, Model model, @RequestParam(name="filter", required = false) String filterMode){
         HttpSession session = request.getSession();
+        User user = userService.getCurrentUser();
         Object counter = session.getAttribute("visitsCounter");
         if(counter != null){
             model.addAttribute("visitsCounter", (Integer) counter);
@@ -45,6 +46,7 @@ public class PrivateCommandController {
         model.addAttribute("numberOfDone", container.getNumberOfDone());
         model.addAttribute("numberOfActive", container.getNumberOfActive());
         model.addAttribute("records", container.getRecords());
+        model.addAttribute("status", user.getRole().toAuthority());
 
         return "private/account-page";
     }
